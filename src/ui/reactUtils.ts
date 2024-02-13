@@ -1,15 +1,11 @@
 import { HTMLAttributes } from 'react'
 
-export interface Props extends HTMLAttributes<Element> {}
+export type { ReactNode } from 'react'
 
-export interface ClassNameOnlyProp {
-  className?: Props['className']
-}
+interface Props extends HTMLAttributes<Element> {}
 
-export interface ClassNameAndChildren {
-  className?: Props['className']
-  children?: Props['children']
-}
+export type Children = Props['children']
+export type ClassName = Props['className']
 
 /**
  * Generates a string for the HTML class property from the passed-in
