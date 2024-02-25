@@ -1,3 +1,22 @@
+@use '@style' as *
+
 .icon
   height: 1em
   width: 1em
+
+.icon--button
+  fill: $secondary
+  @include transition($btn-transition)
+
+  &:hover
+    fill: $primary
+    transform: $btn-hover-transform
+
+  &:active
+    transform: $btn-active-transform
+
+.icon-with-text
+  flex-wrap: wrap
+
+  > *
+    vertical-align: middle
