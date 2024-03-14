@@ -3,10 +3,11 @@ import {
   FieldNoFloating,
   FieldProps,
 } from '@jutils/ui/components/form/field'
-import { useField, useIsValid, ValidatedForm } from 'remix-validated-form'
+import { useField, ValidatedForm } from 'remix-validated-form'
 import { SubmitButton } from './button'
 import { Form as RBForm } from 'react-bootstrap'
 import { Children, ClassName } from '@jutils/ui/reactUtils'
+import { SyntheticEvent } from 'react'
 
 export interface FormProps {
   schema: any // todo
@@ -21,7 +22,6 @@ export function Form({
   children,
   buttonText = 'Submit',
 }: FormProps) {
-  const formIsValid = useIsValid(id)
   const form = (
     <ValidatedForm
       id={id}
@@ -29,6 +29,7 @@ export function Form({
       method="post"
       noValidate
       className="needs-validation"
+      encType="multipart/form-data"
     >
       {children}
     </ValidatedForm>
@@ -39,11 +40,18 @@ export function Form({
 
 export interface InputProps extends FieldProps {
   type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'tel'
+  onChange?: (event: SyntheticEvent) => void
 }
 
-export function Input({ type = 'text', name, id, ...fieldProps }: InputProps) {
+export function Input({
+  type = 'text',
+  name,
+  id,
+  onChange,
+  ...fieldProps
+}: InputProps) {
   const { touched, error, getInputProps } = useField(id)
-  const inputProps = getInputProps({ id, type })
+  const inputProps = getInputProps({ id, type, onChange })
   return (
     <Field {...fieldProps} name={name} id={id}>
       <RBForm.Control

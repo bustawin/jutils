@@ -24,7 +24,7 @@ export function Field({
   const [descriptionEl, errorEl] = fieldExtra(description, error)
 
   return (
-    <FloatingLabel controlId={id} label={name} className="field">
+    <FloatingLabel label={name} className="field">
       {children}
       {description && descriptionEl}
       {error && errorEl}
@@ -43,7 +43,7 @@ export function FieldNoFloating({
   const [descriptionEl, errorEl] = fieldExtra(description, error)
 
   return (
-    <Form.Group controlId={id} className="field">
+    <Form.Group className="field">
       <Form.Label>{name}</Form.Label>
       {children}
       {description && descriptionEl}
