@@ -140,12 +140,13 @@ export function Image({ name, id, ...fieldProps }: FieldProps) {
         placeholder={name}
         onChange={handleFileChange}
       />
-      {images.map((image, i) => (
-        <span key={i}>
-          <img src={`data:image/webp;base64,${image}`} height={150} />
-          <input type="hidden" name={id} value={image} />
-        </span>
-      ))}
+      {images &&
+        images.map((image, i) => (
+          <span key={i}>
+            <img src={`data:image/webp;base64,${image}`} height={150} />
+            <input type="hidden" name={id} value={image} />
+          </span>
+        ))}
     </FieldNoFloating>
   )
 }
