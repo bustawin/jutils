@@ -6,7 +6,7 @@ import {
 } from '@jutils/ui/components/form/field'
 import { useControlField, useField, ValidatedForm } from 'remix-validated-form'
 import { SubmitButton } from './button'
-import { Form as RBForm } from 'react-bootstrap'
+import { Col, Form as RBForm, Image as RBImage, Row } from 'react-bootstrap'
 import { Children, ClassName } from '@jutils/ui/reactUtils'
 import { SyntheticEvent } from 'react'
 import { fileToBase64 } from '@ui/utils/file'
@@ -130,23 +130,33 @@ export function Image({ name, id, ...fieldProps }: FieldProps) {
 
   return (
     <FieldNoFloating {...fieldProps} name={name} id={id}>
-      <RBForm.Control
-        type="file"
-        multiple
-        accept="image/*"
-        className="form--file"
-        isValid={touched && !error}
-        isInvalid={error}
-        placeholder={name}
-        onChange={handleFileChange}
-      />
-      {images &&
-        images.map((image, i) => (
-          <span key={i}>
-            <img src={`data:image/webp;base64,${image}`} height={150} />
-            <input type="hidden" name={id} value={image} />
-          </span>
-        ))}
+      <Row className="mb-2">
+        <Col>
+          <RBForm.Control
+            type="file"
+            multiple
+            accept="image/*"
+            className="form--file"
+            isValid={touched && !error}
+            isInvalid={error}
+            placeholder={name}
+            onChange={handleFileChange}
+          />
+        </Col>
+      </Row>
+      <Row>
+        {images &&
+          images.map((image, i) => (
+            <Col xs={6} key={i}>
+              <RBImage
+                src={`data:image/webp;base64,${image}`}
+                className="form--image__image"
+                thumbnail
+              />
+              <input type="hidden" name={id} value={image} />
+            </Col>
+          ))}
+      </Row>
     </FieldNoFloating>
   )
 }
