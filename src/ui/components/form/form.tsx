@@ -88,7 +88,11 @@ export function Textarea({ name, id, ...fieldProps }: TextareaProps) {
   )
 }
 
-export function File({ name, id, ...fieldProps }: FieldProps) {
+export interface FileProps extends FieldProps {
+  accept?: string[]
+}
+
+export function File({ name, id, accept = [], ...fieldProps }: FileProps) {
   const { touched, error, getInputProps } = useField(id)
   const inputProps = getInputProps({ id })
   return (
@@ -96,7 +100,7 @@ export function File({ name, id, ...fieldProps }: FieldProps) {
       <RBForm.Control
         type="file"
         multiple
-        accept="image/*"
+        accept={accept.join(',')}
         className="form--file"
         isValid={touched && !error}
         isInvalid={error}
@@ -117,7 +121,20 @@ async function processFiles(files: File[]) {
   )
 }
 
-export function Image({ name, id, ...fieldProps }: FieldProps) {
+export const acceptedImages = [
+  'image/jpeg',
+  'image/png',
+  'image/jp2',
+  'image/webp',
+  'image/heic',
+]
+
+export function Image({
+  name,
+  id,
+  accept = acceptedImages,
+  ...fieldProps
+}: FileProps) {
   const { touched, error, getInputProps, validate } = useField(id)
   const [images, setImages] = useControlField<string[]>(id)
 
@@ -129,19 +146,21 @@ export function Image({ name, id, ...fieldProps }: FieldProps) {
   }
 
   return (
-    <FieldNoFloating {...fieldProps} name={name} id={id}>
+    <>
       <Row className="mb-2">
         <Col>
-          <RBForm.Control
-            type="file"
-            multiple
-            accept="image/*"
-            className="form--file"
-            isValid={touched && !error}
-            isInvalid={error}
-            placeholder={name}
-            onChange={handleFileChange}
-          />
+          <FieldNoFloating {...fieldProps} name={name} id={id}>
+            <RBForm.Control
+              type="file"
+              multiple
+              accept={accept.join(',')}
+              className="form--file"
+              isValid={touched && !error}
+              isInvalid={error}
+              placeholder={name}
+              onChange={handleFileChange}
+            />
+          </FieldNoFloating>
         </Col>
       </Row>
       <Row>
@@ -157,7 +176,7 @@ export function Image({ name, id, ...fieldProps }: FieldProps) {
             </Col>
           ))}
       </Row>
-    </FieldNoFloating>
+    </>
   )
 }
 
