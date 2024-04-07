@@ -6,7 +6,9 @@ import morgan from 'morgan'
 
 installGlobals()
 
-export async function server(): Promise<Express> {
+export async function server(
+  setup: (app: Express) => void = () => {}
+): Promise<Express> {
   const viteDevServer =
     process.env.NODE_ENV === 'production'
       ? undefined
@@ -27,6 +29,8 @@ export async function server(): Promise<Express> {
   const app = express()
 
   app.use(compression())
+
+  setup(app)
 
   // http://expressjs.com/en/advanced/best-practice-security.html#at-a-minimum-disable-x-powered-by-header
   app.disable('x-powered-by')
