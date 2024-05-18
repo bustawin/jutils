@@ -1,4 +1,16 @@
 @use '@style' as *
 
-.note__link
-  text-decoration: underline dotted
+.note
+  &:hover
+    text-decoration: dotted underline
+
+    .note__link .icon
+      @extend a
+
+  &__q
+    &:not(.direct)
+      quotes: none
+
+  &__link
+    font-size: .75em
+    margin-left: 2px

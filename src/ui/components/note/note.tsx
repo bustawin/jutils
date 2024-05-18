@@ -1,16 +1,24 @@
-import { Children } from '@jutils/ui/reactUtils'
-import { OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { Children, cls } from '@jutils/ui/reactUtils'
+import Icon from '@jutils/ui/components/icon/Icon'
+import Tooltip from '../tooltip/Tooltip'
 
 export interface NoteProps {
-  id: string
   children: Children
   text: Children
+  className?: string
 }
 
-export default function Note({ children, text }: NoteProps) {
+export default function Note({ children, text, className }: NoteProps) {
   return (
-    <OverlayTrigger overlay={<Tooltip>{text}</Tooltip>}>
-      <span className="note__link">{children}*</span>
-    </OverlayTrigger>
+    <span className={cls('note', className)}>
+      {children}
+      <Tooltip tooltip={text}>
+        <sup>
+          <span className="note__link">
+            <Icon name="chat-left-text-fill" />
+          </span>
+        </sup>
+      </Tooltip>
+    </span>
   )
 }
