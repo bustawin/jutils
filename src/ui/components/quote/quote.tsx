@@ -24,8 +24,10 @@ export default function Q({
   )
 
   return (
-    <Note text={tooltip} className={cls('quote', direct && 'direct')}>
-      {children}
+    <Note text={tooltip}>
+      <q className={cls('quote', direct && 'direct')} cite={url?.toString()}>
+        {children}
+      </q>
     </Note>
   )
 }

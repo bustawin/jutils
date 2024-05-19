@@ -11,7 +11,7 @@ export interface NoteProps {
 export default function Note({ children, text, className }: NoteProps) {
   return (
     <span className={cls('note', className)}>
-      {children}
+      <span className="note__children">{children}</span>
       <Tooltip tooltip={text}>
         <sup>
           <span className="note__link">
