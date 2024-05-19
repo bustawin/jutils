@@ -1,6 +1,6 @@
 import { Children, cls } from '@jutils/ui/reactUtils'
-import Icon from '@jutils/ui/components/icon/Icon'
 import Tooltip from '../tooltip/Tooltip'
+import Icon from '../icon/Icon'
 
 export interface NoteProps {
   children: Children
@@ -15,7 +15,7 @@ export default function Note({ children, text, className }: NoteProps) {
       <Tooltip tooltip={text}>
         <sup>
           <span className="note__link">
-            <Icon name="chat-left-text-fill" />
+            <Icon name="info" />
           </span>
         </sup>
       </Tooltip>

@@ -2,12 +2,11 @@
 
 .note
   &:hover
-    text-decoration: underline
-    text-decoration-style: dotted
-
-    .note__link .icon
-      @extend a
+    .note__children
+      text-decoration: underline
+      text-decoration-style: dotted
 
   &__link
-    font-size: .75em
-    margin-left: 2px
+    @extend a
+    margin-left: -4px
+    text-decoration: none !important
