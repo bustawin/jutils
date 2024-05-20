@@ -1,14 +1,20 @@
 import { createRequestHandler } from '@remix-run/express'
 import { installGlobals } from '@remix-run/node'
 import compression from 'compression'
-import express, { Express } from 'express'
+import express, { Express, RequestHandler } from 'express'
 import morgan from 'morgan'
 
 installGlobals()
 
-export async function server(
-  setup: (app: Express) => void = () => {}
-): Promise<Express> {
+export interface ServerParams {
+  setup?: (app: Express) => void
+  requestHandlers?: RequestHandler[]
+}
+
+export async function server({
+  setup = () => {},
+  requestHandlers = [],
+}: ServerParams = {}): Promise<Express> {
   const viteDevServer =
     process.env.NODE_ENV === 'production'
       ? undefined
@@ -19,8 +25,6 @@ export async function server(
         )
 
   const remixHandler = createRequestHandler({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
     build: viteDevServer
       ? () => viteDevServer.ssrLoadModule('virtual:remix/server-build')
       : await import('../../../../build/server'),
@@ -53,7 +57,7 @@ export async function server(
   app.use(morgan('tiny'))
 
   // handle SSR requests
-  app.all('*', remixHandler)
+  app.all('*', ...requestHandlers, remixHandler)
 
   return app
 }
