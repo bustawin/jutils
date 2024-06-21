@@ -114,7 +114,7 @@ export function File({ name, id, accept = [], ...fieldProps }: FileProps) {
 async function processFiles(files: File[]) {
   return await it.pipe(
     files,
-    it.map.p(fileToBase64),
+    it.map(fileToBase64),
     it.async,
     it.await,
     it.array
