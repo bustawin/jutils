@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react'
 
 export type { ReactNode } from 'react'
 
-interface Props extends HTMLAttributes<Element> {}
+export interface Props extends HTMLAttributes<Element> {}
 
 export type Children = Props['children']
 export type ClassName = Props['className']
