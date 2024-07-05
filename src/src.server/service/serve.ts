@@ -1,5 +1,6 @@
 import { createRequestHandler } from '@remix-run/express'
 import { installGlobals } from '@remix-run/node'
+import compression from 'compression'
 import express, { Express, RequestHandler } from 'express'
 import morgan from 'morgan'
 
@@ -31,7 +32,7 @@ export async function server({
 
   const app = express()
 
-  app.use(shrinkRay()())
+  app.use(compression())
 
   setup(app)
 
@@ -49,8 +50,9 @@ export async function server({
     )
   }
 
-  // Everything else (like favicon.ico) is cached for a week
-  app.use(express.static('build/client', { maxAge: '1w' }))
+  // Everything else (like favicon.ico) is cached for an hour. You may want to be
+  // more aggressive with this caching.
+  app.use(express.static('build/client', { maxAge: '1h' }))
 
   app.use(morgan('tiny'))
 
