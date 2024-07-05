@@ -32,7 +32,7 @@ export async function server({
 
   const app = express()
 
-  app.use(compression())
+  app.use(compression({ level: 8 }))
 
   setup(app)
 
