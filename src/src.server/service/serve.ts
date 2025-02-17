@@ -1,10 +1,7 @@
 import { createRequestHandler } from '@remix-run/express'
-import { installGlobals } from '@remix-run/node'
 import compression from 'compression'
 import express, { Express, RequestHandler } from 'express'
 import morgan from 'morgan'
-
-installGlobals()
 
 export interface ServerParams {
   setup?: (app: Express) => void
