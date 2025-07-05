@@ -7,12 +7,14 @@ export interface QProps extends CiteProps {
   children: Children
   direct?: boolean
   text?: Children
+  blockquote?: boolean
 }
 
 export default function Q({
   children,
   text,
   direct = false,
+  blockquote = false,
   url,
   ...citeProps
 }: QProps) {
@@ -23,11 +25,22 @@ export default function Q({
     </>
   )
 
-  return (
-    <Note text={tooltip}>
-      <q className={cls('quote', direct && 'direct')} cite={url?.toString()}>
-        {children}
-      </q>
-    </Note>
-  )
+  if (blockquote) {
+    return (
+      <figure className="bquote">
+        <blockquote cite={url?.toString()}>{children}</blockquote>
+        <figcaption>
+          <Cite {...citeProps} url={url} />
+        </figcaption>
+      </figure>
+    )
+  } else {
+    return (
+      <Note text={tooltip}>
+        <q className={cls('quote', direct && 'direct')} cite={url?.toString()}>
+          {children}
+        </q>
+      </Note>
+    )
+  }
 }
