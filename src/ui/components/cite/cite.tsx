@@ -52,7 +52,6 @@ export default function Cite({
   if (month) {
     const monthDate = new Date()
     monthDate.setMonth(month - 1)
-    console.log(monthDate)
     namedMonth = monthDate.toLocaleString(undefined, { month: 'long' })
   }
 
