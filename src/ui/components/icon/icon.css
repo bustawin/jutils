@@ -1,0 +1,9 @@
+.icon {
+    height: 1em;
+    width: 1em;
+    display: inline;
+}
+
+.icon--button{
+    fill: var(--secondary)
+}

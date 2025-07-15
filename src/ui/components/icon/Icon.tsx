@@ -1,4 +1,5 @@
 import * as ut from '@jutils/ui/reactUtils'
+import './icon.css'
 
 interface IconProps {
   className?: ut.ClassName

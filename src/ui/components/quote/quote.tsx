@@ -1,6 +1,7 @@
 import { Children, cls } from '@jutils/ui/reactUtils'
 import Cite, { CiteProps } from '../cite/cite'
 import Note from '@jutils/ui/components/note/note'
+import './quote.css'
 
 export interface QProps extends CiteProps {
   id: string
@@ -29,7 +30,7 @@ export default function Q({
     return (
       <figure className="bquote">
         <blockquote cite={url?.toString()}>{children}</blockquote>
-        <figcaption>
+        <figcaption className="muted">
           <Cite {...citeProps} url={url} />
         </figcaption>
       </figure>

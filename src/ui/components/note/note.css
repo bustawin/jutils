@@ -1,0 +1,36 @@
+.note {
+  &:hover {
+    .note__children {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+    .icon {
+      background-color: var(--container-bg-sceondary-lighter);
+    }
+  }
+}
+
+.note__link {
+  position: relative;
+  left: 0.2em;
+  margin-left: -1em;
+  text-decoration: none;
+  cursor: pointer;
+
+  .icon {
+    border-radius: var(--border-radius-sm);
+  }
+
+  &:hover {
+    text-decoration: underline;
+
+    .icon {
+      background-color: var(--container-bg-secondary-light);
+    }
+  }
+  &:active {
+    .icon {
+      background-color: var(--container-bg-sceondary);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.tooltip {
+  max-width: 28ch;
+  text-align: center;
+  background-color: var(--tooltip-bg);
+  padding: var(--quarter-spacer);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.tooltip__arrow {
+  fill: var(--tooltip-bg);
+}
