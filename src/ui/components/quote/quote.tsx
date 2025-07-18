@@ -19,26 +19,36 @@ export default function Q({
   url,
   ...citeProps
 }: QProps) {
-  const tooltip = (
-    <>
-      {text && <p>{text}</p>}
-      <Cite {...citeProps} url={url} />
-    </>
-  )
-
   if (blockquote) {
     return (
-      <figure className="bquote">
-        <blockquote cite={url?.toString()}>{children}</blockquote>
+      <figure
+        itemScope
+        itemType="https://schema.org/Quotation"
+        className="bquote"
+      >
+        <blockquote cite={url?.toString()} itemProp="text">
+          {children}
+        </blockquote>
         <figcaption className="muted">
-          <Cite {...citeProps} url={url} />
+          <Cite {...citeProps} url={url} isReference />
         </figcaption>
       </figure>
     )
   } else {
+    const tooltip = (
+      <>
+        {text && <p>{text}</p>}
+        <Cite {...citeProps} url={url} isReference />
+      </>
+    )
+
     return (
-      <Note text={tooltip}>
-        <q className={cls('quote', direct && 'direct')} cite={url?.toString()}>
+      <Note text={tooltip} itemScope itemType="https://schema.org/Quotation">
+        <q
+          itemProp="text"
+          className={cls('quote', direct && 'direct')}
+          cite={url?.toString()}
+        >
           {children}
         </q>
       </Note>

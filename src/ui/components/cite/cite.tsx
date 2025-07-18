@@ -7,11 +7,7 @@ export interface CiteProps {
   paragraph?: number
   month?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
   year?: number
-  type: 'blog'
-}
-
-const schemaType: Record<CiteProps['type'], string> = {
-  blog: 'http://schema.org/BlogPosting',
+  isReference?: boolean
 }
 
 export default function Cite({
@@ -23,7 +19,7 @@ export default function Cite({
   paragraph,
   month,
   year,
-  type = 'blog',
+  isReference = false,
 }: CiteProps) {
   if (author) authors.push(author)
   const _authors = authors.map((author, i, authors) => (
@@ -34,8 +30,8 @@ export default function Cite({
   ))
 
   const _title = url ? (
-    <a href={url.toString()} itemProp="name">
-      {title}
+    <a href={url.toString()} itemProp="url">
+      <span itemProp="name">{title}</span>
     </a>
   ) : (
     <span itemProp="name">{title}</span>
@@ -59,7 +55,7 @@ export default function Cite({
     <time
       itemProp="dateModified"
       itemType="date"
-      dateTime={`${year}${month && '-'}${month}`}
+      dateTime={`${year}${(month && '-') ?? ''}${month ?? ''}`}
     >
       &nbsp;({namedMonth}
       {namedMonth && ' '}
@@ -69,10 +65,9 @@ export default function Cite({
 
   return (
     <cite
-      itemProp="citation"
+      itemProp={isReference ? 'isBasedOn' : 'citation'}
       itemScope
-      itemType={schemaType[type]}
-      itemID={url && url.toString()}
+      itemType="https://schema.org/CreativeWork"
     >
       {_authors}
       {_title}
