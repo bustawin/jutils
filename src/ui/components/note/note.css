@@ -1,8 +1,8 @@
 .note {
   &:hover {
     .note__children {
-      text-decoration: underline;
-      text-decoration-style: dotted;
+      background-color: var(--container-bg-sceondary-lightest);
+      border-radius: var(--border-radius-sm);
     }
     .icon {
       background-color: var(--container-bg-sceondary-lighter);
@@ -17,13 +17,15 @@
   text-decoration: none;
   cursor: pointer;
 
+  .note__link__link {
+    line-height: 0;
+  }
+
   .icon {
     border-radius: var(--border-radius-sm);
   }
 
   &:hover {
-    text-decoration: underline;
-
     .icon {
       background-color: var(--container-bg-secondary-light);
     }
