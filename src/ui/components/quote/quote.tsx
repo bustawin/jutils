@@ -1,7 +1,6 @@
-import { Children, cls } from '@jutils/ui/reactUtils'
-import Cite, { CiteProps } from '../cite/cite'
+import { Children } from '@jutils/ui/reactUtils'
+import Cite, { citeMeta, CiteProps } from '../cite/cite'
 import Note from '@jutils/ui/components/note/note'
-import './quote.css'
 
 export interface QProps extends CiteProps {
   id: string
@@ -30,28 +29,38 @@ export default function Q({
           {children}
         </blockquote>
         <figcaption className="muted">
-          <Cite {...citeProps} url={url} isReference />
+          <Cite {...citeProps} url={url} />
         </figcaption>
       </figure>
     )
-  } else {
-    const tooltip = (
-      <>
-        {text && <p>{text}</p>}
-        <Cite {...citeProps} url={url} isReference />
-      </>
-    )
+  }
 
+  const tooltip = (
+    <>
+      {text && <p>{text}</p>}
+      <Cite {...citeProps} url={url} />
+    </>
+  )
+
+  if (direct) {
     return (
       <Note text={tooltip} itemScope itemType="https://schema.org/Quotation">
-        <q
-          itemProp="text"
-          className={cls('quote', direct && 'direct')}
-          cite={url?.toString()}
-        >
+        <q itemProp="text" cite={url?.toString()}>
           {children}
         </q>
       </Note>
     )
   }
+
+  return (
+    <Note
+      text={tooltip}
+      itemScope
+      itemProp="citation"
+      itemType="https://schema.org/Statement"
+    >
+      <span itemProp="text">{children}</span>
+      {citeMeta(citeProps)}
+    </Note>
+  )
 }

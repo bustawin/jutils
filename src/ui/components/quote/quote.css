@@ -1,5 +1,0 @@
-.quote {
-  &:not(.direct) {
-    quotes: none;
-  }
-}

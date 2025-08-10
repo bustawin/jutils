@@ -7,7 +7,37 @@ export interface CiteProps {
   paragraph?: number
   month?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
   year?: number
-  isReference?: boolean
+}
+
+export function citeMeta({
+  author,
+  authors = [],
+  title,
+  url,
+  page,
+  month,
+  year,
+}: CiteProps) {
+  if (author) authors.push(author)
+  return (
+    <>
+      {url && <link itemProp="url" href={url.toString()} />}
+      {title && <meta itemProp="name" content={title} />}
+      {authors.map((author) => (
+        <meta key={author} itemProp="author" content={author} />
+      ))}
+      {page && <meta itemProp="pagination" content={page.toString()} />}
+      {(month || year) && (
+        <meta itemProp="dateModified" content={monthDateToISO(year, month)} />
+      )}
+    </>
+  )
+}
+
+function monthDateToISO(year?: number, month?: number): string {
+  return `${year}${(month && '-') ?? ''}${
+    month?.toString().padStart(2, '0') ?? ''
+  }`
 }
 
 export default function Cite({
@@ -19,7 +49,6 @@ export default function Cite({
   paragraph,
   month,
   year,
-  isReference = false,
 }: CiteProps) {
   if (author) authors.push(author)
   const _authors = authors.map((author, i, authors) => (
@@ -55,7 +84,7 @@ export default function Cite({
     <time
       itemProp="dateModified"
       itemType="date"
-      dateTime={`${year}${(month && '-') ?? ''}${month ?? ''}`}
+      dateTime={monthDateToISO(year, month)}
     >
       &nbsp;({namedMonth}
       {namedMonth && ' '}
@@ -64,11 +93,7 @@ export default function Cite({
   )
 
   return (
-    <cite
-      itemProp={isReference ? 'isBasedOn' : 'citation'}
-      itemScope
-      itemType="https://schema.org/CreativeWork"
-    >
+    <cite itemProp="isBasedOn" itemScope itemType="https://schema.org/Article">
       {_authors}
       {_title}
       {page && _location}
