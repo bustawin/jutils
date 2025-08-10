@@ -11,6 +11,7 @@ import {
   useRole,
 } from '@floating-ui/react'
 import './tooltip.css'
+import * as ut from '@jutils/ui/reactUtils'
 
 const ARROW_HEIGHT = 7
 const GAP = 0
@@ -37,14 +38,14 @@ export default function Tooltip({ children, tooltip, className }) {
 
   return (
     <>
-      <span
+      <button
         ref={refs.setReference}
-        className={className}
+        className={ut.cls('tooltip__button', className)}
         onClick={() => setIsOpen(!isOpen)}
         {...getReferenceProps()}
       >
         {children}
-      </span>
+      </button>
       {isOpen && (
         <div
           ref={refs.setFloating}

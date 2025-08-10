@@ -81,11 +81,7 @@ export default function Cite({
   }
 
   const date = (
-    <time
-      itemProp="dateModified"
-      itemType="date"
-      dateTime={monthDateToISO(year, month)}
-    >
+    <time itemProp="dateModified" dateTime={monthDateToISO(year, month)}>
       &nbsp;({namedMonth}
       {namedMonth && ' '}
       {year})
