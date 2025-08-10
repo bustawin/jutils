@@ -1,6 +1,6 @@
-import { Children } from '@jutils/ui/reactUtils'
+import { Children } from '../../reactUtils'
 import Cite, { citeMeta, CiteProps } from '../cite/cite'
-import Note from '@jutils/ui/components/note/note'
+import Note from '../note/note'
 
 export interface QProps extends CiteProps {
   id: string
@@ -10,7 +10,13 @@ export interface QProps extends CiteProps {
   blockquote?: boolean
 }
 
-export default function Q({
+/**
+ * Generates a citation.
+ * If `direct` is `true`, the citation is a short in line quotation.
+ * If `blockquote` is `true`, the citation is a block quote.
+ * APA style recommends quotations [to be more than 40 characters](https://apastyle.apa.org/style-grammar-guidelines/citations/quotations).
+ */
+export default function Citation({
   children,
   text,
   direct = false,
