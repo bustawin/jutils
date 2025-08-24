@@ -1,10 +1,5 @@
-import { AppData } from '@remix-run/react/dist/data'
-import {
-  Scripts,
-  ScrollRestoration,
-  UIMatch,
-  useMatches,
-} from '@remix-run/react'
+import { AppData } from '@react-router/react/dist/data'
+import { Scripts, ScrollRestoration, UIMatch, useMatches } from 'react-router'
 
 export interface Handler {
   useScripts?: boolean
